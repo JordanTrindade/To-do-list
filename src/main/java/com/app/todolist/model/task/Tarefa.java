@@ -13,10 +13,10 @@ public class Tarefa {
 
     private String descricao;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private TarefaPrioridade prioridade;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private TarefaStatus status;
 
     public Tarefa(){}
