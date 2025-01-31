@@ -23,16 +23,15 @@ public class TarefaController {
 
     @GetMapping
     public ResponseEntity<List <Tarefa>> buscaTodasTarefas(){
-       List<Tarefa> tarefas = tarefaService.buscarTodasTarefas();
+       List<Tarefa> tarefas = tarefaService.listarTodasTarefas();
        if(Objects.isNull(tarefas) || tarefas.isEmpty()){
            return ResponseEntity.noContent().build();
        }
-
        return ResponseEntity.ok().body(tarefas);
     }
 
     @PostMapping
-    public ResponseEntity<Tarefa> addTarefa(@Validated @RequestBody TarefaDto tarefaDto) {
+    public ResponseEntity<List<Tarefa>> addTarefa(@Validated @RequestBody TarefaDto tarefaDto) {
 
         Tarefa tarefaSalva = new Tarefa(
                 tarefaDto.titulo(),
@@ -40,7 +39,6 @@ public class TarefaController {
                 tarefaDto.prioridade(),
                 tarefaDto.status()
         );
-        tarefaSalva = tarefaService.salvarTarefa(tarefaSalva);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -48,19 +46,18 @@ public class TarefaController {
                 .buildAndExpand(tarefaSalva.getId())
                 .toUri();
 
-        return ResponseEntity.created(location).body(tarefaSalva);
+        return ResponseEntity.status(HttpStatus.CREATED).body(tarefaService.add(tarefaSalva));
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<List<Tarefa>> DeletaTarefaPorId(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(tarefaService.delete(id));
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Tarefa> buscarTarefaPorId(@PathVariable Long id){
         Tarefa tarefa = tarefaService.buscaTarefaPorId(id);
         return ResponseEntity.status(HttpStatus.OK).body(tarefa);
-    }
-
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Tarefa> DeletaTarefaPorId(@PathVariable Long id){
-        tarefaService.deletarTarefa(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }
