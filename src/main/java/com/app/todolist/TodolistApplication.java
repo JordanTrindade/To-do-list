@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @SpringBootApplication
-@Profile("dev")
+@Profile("default")
 public class TodolistApplication {
 
 	public static void main(String[] args) {
@@ -30,8 +30,8 @@ public class TodolistApplication {
 
 		@Override
 		public void run(String... args) throws Exception {
-			Tarefa tarefa = new Tarefa("Estudar", "Estudar as 19", TarefaPrioridade.ALTA, TarefaStatus.PENDENTE);
-			tarefaRepository.save(tarefa); // Persistindo a pessoa no banco de dados
+			//Tarefa tarefa = new Tarefa("Estudar", "Estudar as 19", TarefaPrioridade.ALTA, TarefaStatus.PENDENTE);
+			//tarefaRepository.save(tarefa); // Persistindo a pessoa no banco de dados
 		}
 
 	}
