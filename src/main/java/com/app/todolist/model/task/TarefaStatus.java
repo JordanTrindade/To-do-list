@@ -14,4 +14,30 @@ public enum TarefaStatus {
         this.id = id;
         this.descricao = descricao;
     }
+
+    public static TarefaStatus integerToTarefaStatus(Integer id){
+        for(TarefaStatus tarefaStatus : TarefaStatus.values()){
+            if(tarefaStatus.getId() == id){
+                return tarefaStatus;
+            }
+        }
+        return null;
+    }
+
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }
